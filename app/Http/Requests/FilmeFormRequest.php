@@ -32,7 +32,7 @@ class FilmeFormRequest extends FormRequest
             'elenco' => 'required|max:100|min:3',
             'classificacao'=>'required|max:15|min:2',
             'plataformas'=>'required|max:255|min:5',
-            'duracao' =>'required|time'
+            'duracao' =>'required|date_format:H:I:S'
         ];
     }
 
