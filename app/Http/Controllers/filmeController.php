@@ -40,29 +40,95 @@ class filmeController extends Controller
 
     //Pesquisar por título/genero/diretor/sinopse
     public function pesquisa(Request $request)
-{
-    $query = Filme::query();
+    {
+     
+        $query = Filme::query();
+       
+        $query->where(function ($q) use ($request) {
+            $q->where('sinopse', 'like', '%' . $request->input('pesquisa') . '%')
+                ->orWhere('genero', 'like', '%' .$request->input('pesquisa') . '%')
+                ->orWhere('diretor', 'like', '%' .$request->input('pesquisa') . '%')     
+                ->orWhere('classificacao', 'like', '%' .$request->input('pesquisa') . '%')    
+                ->orWhere('plataformas', 'like', '%' .$request->input('pesquisa') . '%')   
+                ->orWhere('elenco', 'like', '%' .$request->input('pesquisa') . '%')   
+                ->orWhere('titulo', 'like', '%' .$request->input('pesquisa') . '%');     
+        });
 
-    $query->where(function ($q) use ($request) {
-        $q->where('sinopse', 'like', '%' . $request->input('pesquisa') . '%')
-          ->orWhere('genero', 'like', '%' . $request->input('pesquisa') . '%');
-    })
-    ->where('titulo', 'like', '%' . $request->input('pesquisa') . '%');
-
-    $filmes = $query->get();
-
-    if (count($filmes) > 0) {
+        $filme = $query->get();
+        if (count($filme) > 0) {
+            return response()->json([
+                'status' => true,
+                'data' => $filme
+            ]);
+        }
         return response()->json([
-            'status' => true,
-            'data' => $filmes
+            'status' => false,
+            'data' => "Nenhum resultado encontrado"
         ]);
     }
 
-    return response()->json([
-        'status' => false,
-        'data' => "Nenhum resultado encontrado"
-    ]);
-}
+    //Pesquisar por título
+    
+    public function pesquisarPorTitulo(Request $request)
+    {
+        $filme = Filme::where('titulo', 'like', '%' . $request->titulo . '%')->get();
+        if (count($filme) > 0) {
+
+            return response()->json([
+                'status' => true,
+                'data' => $filme
+            ]);
+        }
+        return response()->json([
+            'status' => false,
+            'data' => "Não foi encontrado nenhuma produção"
+        ]);
+    }
+
+    //Pesquisar por diretor
+    public function pesquisarPorDiretor(Request $request){
+        $filme = Filme::where('diretor', 'like', '%' . $request->diretor . '%')->get();
+        if (count($filme) > 0) {
+            return response()->json([
+                'status' => true,
+                'data' => $filme
+            ]);
+        }
+        return response()->json([
+            'status' => false,
+            'data' => "Não foi encontrado nenhuma produção"
+        ]);
+    }
+
+    //Pesquisar por genêro
+    public function pesquisarPorGenero(Request $request){
+        $filme = Filme::where('genero', 'like', '%' . $request->genero . '%')->get();
+        if (count($filme) > 0) {
+            return response()->json([
+                'status' => true,
+                'data' => $filme
+            ]);
+        }
+        return response()->json([
+            'status' => false,
+            'data' => "Não foi encontrado nenhuma produção"
+        ]);
+    }
+
+    //pesquisar por Sinopse
+    public function pesquisarPorSinopse(Request $request){
+        $filme = Filme::where('sinopse', 'like', '%' . $request->sinopse . '%')->get();
+        if (count($filme) > 0) {
+            return response()->json([
+                'status' => true,
+                'data' => $filme
+            ]);
+        }
+        return response()->json([
+            'status' => false,
+            'data' => "Não foi encontrado nenhuma produção"
+        ]);
+    }
 
     //Excluir
     public function excluir($id){
