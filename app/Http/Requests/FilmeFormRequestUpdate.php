@@ -24,7 +24,7 @@ class FilmeFormRequestUpdate extends FormRequest
     public function rules(): array
     {
         return [
-            'titulo' => 'required|max:100|min:2|unique:filmes,titulo'. $this->id,
+            'titulo' => 'required|max:100|min:2|unique:filmes,titulo,'. $this->id,
             'diretor'=>'required|max:100|min:3',
             'genero' => 'required|max:100|min:3',
             'dt_lancamento' => 'required|date',
