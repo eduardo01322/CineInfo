@@ -32,7 +32,7 @@ class FilmeFormRequest extends FormRequest
             'elenco' => 'required|max:100|min:3',
             'classificacao'=>'required|max:15|min:2',
             'plataformas'=>'required|max:255|min:5',
-            'duracao' =>'required|date_format:H:I:S'
+            'duracao' => 'required|date_format:H:i:s'
         ];
     }
 
@@ -86,7 +86,7 @@ class FilmeFormRequest extends FormRequest
             'plataformas.min' => 'O campo Plataforma deve ter no mínimo 5 caractéris',
 
             'duracao.required' => 'Duração do Stream obrigátorio',
-            'duracao.time' => 'Duração do Stream está em formato incorreto',
+            'duracao.date_format' => 'Duração do Stream está em formato incorreto',
         ];
     }
 }

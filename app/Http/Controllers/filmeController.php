@@ -37,69 +37,31 @@ class filmeController extends Controller
         ]);
     }
 
-    //Pesquisar por título
-    public function pesquisarPorTitulo(Request $request)
-    {
-        $filme = Filme::where('titulo', 'like', '%' . $request->titulo . '%')->get();
-        if (count($filme)) {
+    //Pesquisar por título/genero/diretor/sinopse
+    public function pesquisa(Request $request)
+{
+    $query = Filme::query();
 
-            return response()->json([
-                'status' => true,
-                'data' => $filme
-            ]);
-        }
+    $query->where(function ($q) use ($request) {
+        $q->where('sinopse', 'like', '%' . $request->input('pesquisa') . '%')
+          ->orWhere('genero', 'like', '%' . $request->input('pesquisa') . '%');
+    })
+    ->where('titulo', 'like', '%' . $request->input('pesquisa') . '%');
+
+    $filmes = $query->get();
+
+    if (count($filmes) > 0) {
         return response()->json([
-            'status' => false,
-            'data' => "Não foi encontrado nenhuma produção"
+            'status' => true,
+            'data' => $filmes
         ]);
     }
 
-
-    //Pesquisar por diretor
-    public function pesquisarPorDiretor(Request $request){
-        $filme = Filme::where('diretor', 'like', '%' . $request->diretor . '%')->get();
-        if (count($filme) > 0) {
-            return response()->json([
-                'status' => true,
-                'data' => $filme
-            ]);
-        }
-        return response()->json([
-            'status' => false,
-            'data' => "Não foi encontrado nenhuma produção"
-        ]);
-    }
-
-    //Pesquisar por genêro
-    public function pesquisarPorGenero(Request $request){
-        $filme = Filme::where('genero', 'like', '%' . $request->genero . '%')->get();
-        if (count($filme) > 0) {
-            return response()->json([
-                'status' => true,
-                'data' => $filme
-            ]);
-        }
-        return response()->json([
-            'status' => false,
-            'data' => "Não foi encontrado nenhuma produção"
-        ]);
-    }
-
-
-    //pesquisar por Sinopse
-    public function pesquisarPorSinopse(Request $request){
-        $filme = Filme::where('sinopse', 'like', '%' . $request->sinopse . '%')->get();
-        if (count($filme) > 0) {
-            return response()->json([
-                'status' => true,
-                'data' => $filme
-            ]);
-        }
-        return response()->json([
-            'status' => false,
-            'data' => "Não foi encontrado nenhuma produção"
-        ]);
-    }
+    return response()->json([
+        'status' => false,
+        'data' => "Nenhum resultado encontrado"
+    ]);
+}
 
     //Excluir
     public function excluir($id){
