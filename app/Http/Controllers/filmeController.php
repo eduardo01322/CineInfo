@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\FilmeFormRequest;
+use App\Http\Requests\FilmeFormRequestUpdate;
 use App\Models\Filme;
 use Illuminate\Http\Request;
 
@@ -11,10 +12,10 @@ class filmeController extends Controller
     // Cadastro de filme
     public function cadastroFilme(FilmeFormRequest $request){
         $filme = Filme::create([
-            'titulo:' => $request->titulo,
+            'titulo' => $request->titulo,
             'diretor' => $request->diretor,
             'genero' => $request->genero,
-            'dt_lancamento' => $request->dt_lançamento,
+            'dt_lancamento' => $request->dt_lancamento,
             'sinopse' => $request->sinopse,
             'elenco' => $request->elenco,
             'classificacao' => $request->classificacao,
@@ -80,10 +81,10 @@ class filmeController extends Controller
         ]);
     }
 
-    public function update(FilmeFormRequest $request){
+    public function update(FilmeFormRequestUpdate $request){
         $filme = filme::find($request->id);
     
-        if(!isset($Cliente)){
+        if(!isset($filme)){
             return response()->json([
                 "status" => false,
                 "message" => "Não foi encontrado nenhuma produção"
