@@ -67,8 +67,24 @@ class filmeController extends Controller
         ]);
     }
 
+
+    //Pesquisar por id
+    public function pesquisarPorId($id){
+        $filme = Filme::find($id);
+        if($filme == null){
+            return response()->json([
+                'status'=> false,
+                'message' => "Produção não encontrada"
+            ]);     
+        }
+        return response()->json([
+            'status'=> true,
+            'data'=> $filme
+        ]);
+    }
+
+
     //Pesquisar por título
-    
     public function pesquisarPorTitulo(Request $request)
     {
         $filme = Filme::where('titulo', 'like', '%' . $request->titulo . '%')->get();

@@ -13,6 +13,7 @@ route::get('filmes/pesquisar/genero', [filmeController::class, 'pesquisarPorGene
 route::get('filmes/pesquisar/sinopse', [filmeController::class, 'pesquisarPorSinopse']);
 route::delete('filmes/delete/{id}', [filmeController::class, 'excluir']);
 route::put('filmes/update', [filmeController::class, 'update']);
+route::get('filmes/find/{id}', [filmeController::class, 'pesquisarPorId']);
 
 
 
