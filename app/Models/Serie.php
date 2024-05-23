@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Filme extends Model
+class Serie extends Model
 {
     use HasFactory;
 
@@ -13,12 +13,13 @@ class Filme extends Model
 
         'titulo',
         'diretor',
+        'studio',
         'genero',
         'dt_lancamento',
         'sinopse',
         'elenco',
         'classificacao',
         'plataformas',
-        'duracao'
+        'episodios'
     ];
 }

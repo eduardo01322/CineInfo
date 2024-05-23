@@ -5,20 +5,21 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Filme extends Model
+class Animacao extends Model
 {
     use HasFactory;
 
+    
     protected $fillable =[
 
         'titulo',
         'diretor',
+        'studio',
         'genero',
         'dt_lancamento',
         'sinopse',
-        'elenco',
         'classificacao',
         'plataformas',
-        'duracao'
+        'episodios'
     ];
 }
