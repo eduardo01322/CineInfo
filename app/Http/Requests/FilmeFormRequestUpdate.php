@@ -30,7 +30,7 @@ class FilmeFormRequestUpdate extends FormRequest
             'dt_lancamento' => 'required|date',
             'sinopse' => 'required|max:10000|min:3',
             'elenco' => 'required|max:100|min:3',
-            'classificacao'=>'required|max:15|min:2',
+            'classificacao'=>'required|max:15|min:1',
             'plataformas'=>'required|max:255|min:5',
             'duracao' => 'required|date_format:H:i:s'
         ];
